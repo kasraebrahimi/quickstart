@@ -8,11 +8,18 @@ class TaskTransferController extends Controller
 {
     public function index()
     {
-      return view('transfers');
+      $allTransfers = \App\Transfer::all()->toArray();
+      return view('transfers', compact('allTransfers'));
     }
 
     public function store()
     {
+      $transfer = new \App\Transfer;
+      $transfer->sender = request()->all()['sender'];
+      $transfer->receiver = request()->all()['receiver'];
+      $transfer->transferedTask = request()->all()['transferedTask'];
+      $transfer->save();
+
       return redirect('/transfers');
     }
 }

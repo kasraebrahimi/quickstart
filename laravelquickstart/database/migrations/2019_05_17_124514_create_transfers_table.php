@@ -16,6 +16,11 @@ class CreateTransfersTable extends Migration
         Schema::create('transfers', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
+            $table->string('sender');
+            $table->string('receiver');
+            $table->string('transferedTask');
+            $table->unsignedInteger('status')->default(0);
+
         });
     }
 
