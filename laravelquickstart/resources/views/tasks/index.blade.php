@@ -62,17 +62,17 @@
 
                                       <!-- Delete Button -->
                                       <td>
-                                          <form action="{{ url('task/'.$task->id) }}" method="POST">
-                                              {{ csrf_field() }}
-                                              {{ method_field('DELETE') }}
 
-                                              <script type="text/javascript">
-                                                  function triggerTransfer(user) {
-                                                    if (window.confirm(`Are you sure you want to transfer this task to ${user}`)) {
-                                                      document.getElementById('transferedForm').submit();
-                                                    }
-                                                  }
-                                              </script>
+                                        <script type="text/javascript">
+                                            function triggerTransfer(user) {
+                                              if (window.confirm(`Are you sure you want to transfer this task to ${user}`)) {
+                                                document.getElementById('transferedForm').submit();
+                                              }
+                                            }
+                                        </script>
+
+                                        <form method="POST" action="/transfer" id="transferedForm">
+                                          {{ csrf_field() }}
 
                                               <div class="dropright float-right">
                                                   <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -80,21 +80,27 @@
                                                   </button>
                                                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                     @foreach ($userNames as $user)
-                                                        <form method="POST" action="/transfers" id="transferedForm">
-                                                          {{ csrf_field() }}
+
                                                           <input type="hidden" name="sender" value="{{ $currentUser }}">
                                                           <input type="hidden" name="receiver" value="{{ $user }}">
                                                           <input type="hidden" name="transferedTask" value="{{ $task->name }}">
                                                           <a class="dropdown-item" href="javascript: {}" onclick="triggerTransfer('{{ $user }}');">{{ $user }}</a>
-                                                        </form>
+
                                                     @endforeach
                                                   </div>
                                               </div>
+                                        </form>
+
+                                        <form action="{{ url('task/'.$task->id) }}" method="POST">
+                                            {{ csrf_field() }}
+                                            {{ method_field('DELETE') }}
+
+                                            <button type="submit" id="delete-task-{{ $task->id }}" class="btn btn-danger d-lg-inline col-auto float-right" style="margin-right: 4px; margin-left: 4px;">Delete Task</button>
+
+                                        </form>
 
 
-                                                <button type="submit" id="delete-task-{{ $task->id }}" class="btn btn-danger d-lg-inline col-auto float-right" style="margin-right: 4px; margin-left: 4px;">Delete Task</button>
 
-                                          </form>
                                       </td>
                                   </tr>
 

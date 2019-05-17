@@ -27,5 +27,5 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-// Route::get('/transfers', 'TaskController@transfer');
-// Route::post('/transfers', 'TaskController@transfer');
+Route::get('/transfers', 'TaskTransferController@index');
+Route::post('/transfer', 'TaskTransferController@store');
