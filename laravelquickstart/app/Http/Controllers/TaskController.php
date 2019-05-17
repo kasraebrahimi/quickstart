@@ -30,7 +30,7 @@ class TaskController extends Controller
            }
           }
 
-
+          //die(print_r($userNames));
       return view('tasks.index', [
           'tasks' => $this->tasks->forUser($request->user()),
           'userNames' => $userNames,
@@ -56,5 +56,5 @@ class TaskController extends Controller
         $this->authorize('destroy', $task);
         $task->delete();
         return redirect('/tasks');
-    }    
+    }
 }

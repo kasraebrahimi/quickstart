@@ -12,13 +12,16 @@ class TaskTransferController extends Controller
       return view('transfers', compact('allTransfers'));
     }
 
-    public function store()
+    public function store(Request $request)
     {
       $transfer = new \App\Transfer;
       $transfer->sender = request()->all()['sender'];
       $transfer->receiver = request()->all()['receiver'];
       $transfer->transferedTask = request()->all()['transferedTask'];
+
       $transfer->save();
+
+
 
       return redirect('/transfers');
     }

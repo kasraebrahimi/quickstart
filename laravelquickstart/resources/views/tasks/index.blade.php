@@ -64,15 +64,13 @@
                                       <td>
 
                                         <script type="text/javascript">
-                                            function triggerTransfer(user) {
+                                            function triggerTransfer(user, usertask) {
                                               if (window.confirm(`Are you sure you want to transfer this task to ${user}`)) {
-                                                document.getElementById('transferedForm').submit();
+                                                document.getElementById(usertask).submit();
                                               }
                                             }
                                         </script>
 
-                                        <form method="POST" action="/transfer" id="transferedForm">
-                                          {{ csrf_field() }}
 
                                               <div class="dropright float-right">
                                                   <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -81,15 +79,23 @@
                                                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                     @foreach ($userNames as $user)
 
+                                                    <form method="POST" action="/transfer" id="{{ $user }}{{ $task->name }}">
+                                                      {{ csrf_field() }}
+
                                                           <input type="hidden" name="sender" value="{{ $currentUser }}">
                                                           <input type="hidden" name="receiver" value="{{ $user }}">
                                                           <input type="hidden" name="transferedTask" value="{{ $task->name }}">
-                                                          <a class="dropdown-item" href="javascript: {}" onclick="triggerTransfer('{{ $user }}');">{{ $user }}</a>
+
+                                                          <a class="dropdown-item" href="javascript: {}" onclick="triggerTransfer('{{ $user }}', '{{ $user }}{{ $task->name }}');">{{ $user }}</a>
+
+                                                    </form>
 
                                                     @endforeach
+
+
                                                   </div>
                                               </div>
-                                        </form>
+
 
                                         <form action="{{ url('task/'.$task->id) }}" method="POST">
                                             {{ csrf_field() }}
