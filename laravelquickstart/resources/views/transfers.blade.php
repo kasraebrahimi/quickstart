@@ -5,6 +5,7 @@
     <title></title>
   </head>
   <body>
-      <h1>Hello</h1>
+      <h1>Your request was sent.</h1>
+
   </body>
 </html>

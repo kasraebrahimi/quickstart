@@ -33,7 +33,8 @@ class TaskController extends Controller
 
       return view('tasks.index', [
           'tasks' => $this->tasks->forUser($request->user()),
-          'userNames' => $userNames
+          'userNames' => $userNames,
+          'currentUser' => auth()->user()->name
       ]);
     }
 
@@ -55,11 +56,5 @@ class TaskController extends Controller
         $this->authorize('destroy', $task);
         $task->delete();
         return redirect('/tasks');
-    }
-
-    public function test()
-    {
-
-      dd($_POST);
-    }
+    }    
 }

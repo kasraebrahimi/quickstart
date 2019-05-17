@@ -5,7 +5,6 @@
 @section('content')
 
     <!-- Bootstrap Boilerplate... -->
-
     <div class="card">
         <!-- Display Validation Errors -->
         @include('common.errors')
@@ -70,7 +69,7 @@
                                               <script type="text/javascript">
                                                   function triggerTransfer(user) {
                                                     if (window.confirm(`Are you sure you want to transfer this task to ${user}`)) {
-                                                      document.getElementById('test').submit();
+                                                      document.getElementById('transferedForm').submit();
                                                     }
                                                   }
                                               </script>
@@ -81,9 +80,11 @@
                                                   </button>
                                                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                     @foreach ($userNames as $user)
-                                                        <form method="POST" action="/test" id="test">
+                                                        <form method="POST" action="/transfers" id="transferedForm">
                                                           {{ csrf_field() }}
-                                                          <input type="hidden" name="sender" value="">
+                                                          <input type="hidden" name="sender" value="{{ $currentUser }}">
+                                                          <input type="hidden" name="receiver" value="{{ $user }}">
+                                                          <input type="hidden" name="transferedTask" value="{{ $task->name }}">
                                                           <a class="dropdown-item" href="javascript: {}" onclick="triggerTransfer('{{ $user }}');">{{ $user }}</a>
                                                         </form>
                                                     @endforeach
