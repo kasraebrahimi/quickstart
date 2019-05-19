@@ -9,6 +9,7 @@
     <div class="card">
         <!-- Display Validation Errors -->
 
+
         <!-- New Task Form -->
         <form action="{{ url('task') }}" method="POST" class="form-horizontal">
             {{ csrf_field() }}
