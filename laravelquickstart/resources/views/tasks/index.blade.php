@@ -4,10 +4,11 @@
 
 @section('content')
 
+    @include('common.errors')
     <!-- Bootstrap Boilerplate... -->
     <div class="card">
         <!-- Display Validation Errors -->
-        @include('common.errors')
+
 
         <!-- New Task Form -->
         <form action="{{ url('task') }}" method="POST" class="form-horizontal">
@@ -24,7 +25,7 @@
                     </span>
                 </div>
                 <br>
-            </div>
+            </div>@include('common.errors')
 
             <!-- Add Task Button -->
         </form>
@@ -107,12 +108,14 @@
                             </form>
                         @endif
 
-
+                                        @php
+                                          $disabled = (in_array($task->name, $trTaskNames)) ? "disabled" : "";
+                                        @endphp
                                         <form action="{{ url('task/'.$task->id) }}" method="POST">
                                             {{ csrf_field() }}
                                             {{ method_field('DELETE') }}
 
-                                            <button type="submit" id="delete-task-{{ $task->id }}" class="btn btn-danger d-lg-inline col-auto float-right" style="margin-right: 4px; margin-left: 4px;">Delete Task</button>
+                                            <button type="submit" id="delete-task-{{ $task->id }}" class="btn btn-danger d-lg-inline col-auto float-right" style="margin-right: 4px; margin-left: 4px;" {{ $disabled }}>Delete Task</button>
 
                                         </form>
 

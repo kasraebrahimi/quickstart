@@ -59,9 +59,12 @@ class TaskController extends Controller
         $request->user()->tasks()->create([
           'name' => $request->name,
         ]);
-      }
 
-    return redirect('/tasks');
+        return redirect('/tasks');
+      } else {
+        
+        return redirect('/tasks')->withErrors('Task already exists.');
+      }
     }
 
     public function destroy(Request $request, Task $task)
