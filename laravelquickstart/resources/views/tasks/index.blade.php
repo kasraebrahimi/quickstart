@@ -9,7 +9,6 @@
     <div class="card">
         <!-- Display Validation Errors -->
 
-
         <!-- New Task Form -->
         <form action="{{ url('task') }}" method="POST" class="form-horizontal">
             {{ csrf_field() }}
@@ -25,7 +24,7 @@
                     </span>
                 </div>
                 <br>
-            </div>@include('common.errors')
+            </div>
 
             <!-- Add Task Button -->
         </form>
@@ -104,7 +103,7 @@
 
                               <input type="hidden" name="canceledTask" value="{{ $task->name }}">
 
-                              <button class="btn btn-dark float-right" type="submit" aria-haspopup="true" aria-expanded="false" name="cancel">Cancel Transfer</button>
+                              <button class="btn btn-secondary float-right" type="submit" aria-haspopup="true" aria-expanded="false" name="cancel">Cancel Transfer</button>
                             </form>
                         @endif
 

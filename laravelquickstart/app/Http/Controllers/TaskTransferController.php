@@ -23,9 +23,9 @@ class TaskTransferController extends Controller
       return redirect('/transfers');
     }
 
-    public function cancel()
+    public function cancel(Request $request)
     {
-      // TODO delete transfer request from db.
+      \App\Transfer::where('transferedTask', $request->canceledTask)->delete();
       return redirect('/tasks');
     }
 
