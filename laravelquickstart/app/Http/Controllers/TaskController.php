@@ -54,10 +54,12 @@ class TaskController extends Controller
       $this->validate($request, [
         'name' => ['required', 'max:255']
       ]);
+      if (!\App\Task::where('name', $request->name)->exists()) {
 
-      $request->user()->tasks()->create([
-        'name' => $request->name,
-      ]);
+        $request->user()->tasks()->create([
+          'name' => $request->name,
+        ]);
+      }
 
     return redirect('/tasks');
     }

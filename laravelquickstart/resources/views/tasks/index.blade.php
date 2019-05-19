@@ -103,7 +103,7 @@
 
                               <input type="hidden" name="canceledTask" value="{{ $task->name }}">
 
-                              <button class="btn btn-dark float-right" type="button" aria-haspopup="true" aria-expanded="false" name="cancel">Cancel Transfer</button>
+                              <button class="btn btn-dark float-right" type="submit" aria-haspopup="true" aria-expanded="false" name="cancel">Cancel Transfer</button>
                             </form>
                         @endif
 

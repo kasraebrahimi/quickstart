@@ -26,7 +26,6 @@ class TaskTransferController extends Controller
     public function cancel()
     {
       // TODO delete transfer request from db.
-
       return redirect('/tasks');
     }
 
