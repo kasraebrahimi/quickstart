@@ -28,5 +28,4 @@ class TaskTransferController extends Controller
       \App\Transfer::where('transferedTask', $request->canceledTask)->delete();
       return redirect('/tasks');
     }
-
 }

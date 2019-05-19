@@ -22,8 +22,10 @@
           <td>{{ $transfer['receiver'] }}</td>
           <td>
             @if ($transfer['status'] == 0)
-              <form method="POST" action="#">
-                  <button class="btn btn-default" type="button" name="button{{ $transfer['transferedTask'] }}Cancel">Cancel</button>
+              <form method="POST" action="../canceled">
+                @csrf
+                  <input type="hidden" name="canceledTask" value="{{ $transfer['transferedTask'] }}">
+                  <button class="btn btn-default" type="submit" name="button{{ $transfer['transferedTask'] }}Cancel">Cancel</button>
               </form>
             @endif
 
