@@ -6,7 +6,7 @@
 
     <table class="table table-bordered">
       <thead>
-        <tr class="bg-success">
+        <tr class="bg-info">
           <th scope="col">Task Name</th>
           <th scope="col">Request Receiver</th>
           <th scope="col">Status</th>
@@ -20,7 +20,14 @@
         <tr>
           <td>{{ $transfer['transferedTask'] }}</td>
           <td>{{ $transfer['receiver'] }}</td>
-          <td><?php echo $transfer['status'] == 0 ? 'Pending' : 'Done'; ?></td>
+          <td>
+            @if ($transfer['status'] == 0)
+              <form method="POST" action="#">
+                  <button class="btn btn-default" type="button" name="button{{ $transfer['transferedTask'] }}Cancel">Cancel</button>
+              </form>
+            @endif
+
+          </td>
         </tr>
       <?php
         }
@@ -33,7 +40,7 @@
 <h2>List of Received Requests</h2>
 <table class="table table-bordered">
   <thead>
-    <tr class="bg-success">
+    <tr class="bg-info">
       <th scope="col">Task Name</th>
       <th scope="col">Request Sender</th>
       <th scope="col">Status</th>
@@ -49,7 +56,10 @@
       <td>{{ $transfer['sender'] }}</td>
       <td>
         @if ($transfer['status'] == 0)
-          <a href="">Pending</a>
+          <form method="POST" action="#">
+              <button class="btn btn-success" type="button" name="button{{ $transfer['transferedTask'] }}Accept">Accept</button>
+              <button class="btn btn-danger" type="button" name="button{{ $transfer['transferedTask'] }}Reject">Reject</button>
+          </form>
         @endif
       </td>
     </tr>

@@ -53,48 +53,59 @@
                         @foreach ($tasks as $task)
 
 
-                                    <!-- TODO: Delete Button -->
-                                    <tr>
-                                      <!-- Task Name -->
-                                      <td class="table-text">
-                                          <div>{{ $task->name }}</div>
-                                      </td>
+                        <!-- TODO: Delete Button -->
+                        <tr>
+                        <!-- Task Name -->
+                        <td class="table-text">
+                        <div>{{ $task->name }}</div>
+                        </td>
 
-                                      <!-- Delete Button -->
-                                      <td>
+                        <!-- Delete Button -->
+                        <td>
 
-                                        <script type="text/javascript">
-                                            function triggerTransfer(user, usertask) {
-                                              if (window.confirm(`Are you sure you want to transfer this task to ${user}`)) {
-                                                document.getElementById(usertask).submit();
-                                              }
-                                            }
-                                        </script>
+                        <script type="text/javascript">
+                        function triggerTransfer(user, usertask) {
+                        if (window.confirm(`Are you sure you want to transfer this task to ${user}`)) {
+                        document.getElementById(usertask).submit();
+                        }
+                        }
+                        </script>
+
+                        @if (!in_array($task->name, $trTaskNames))
+
+                        <div class="dropright float-right">
+                          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Transfer to
+                          </button>
+                          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            @foreach ($userNames as $user)
+
+                            <form method="POST" action="/transfers" id="{{ $user }}{{ $task->name }}">
+                              {{ csrf_field() }}
+
+                                  <input type="hidden" name="sender" value="{{ $currentUser }}">
+                                  <input type="hidden" name="receiver" value="{{ $user }}">
+                                  <input type="hidden" name="transferedTask" value="{{ $task->name }}">
+
+                                  <a class="dropdown-item" href="javascript: {}" onclick="triggerTransfer('{{ $user }}', '{{ $user }}{{ $task->name }}');">{{ $user }}</a>
+
+                            </form>
+
+                            @endforeach
 
 
-                                              <div class="dropright float-right">
-                                                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                  Transfer to
-                                                  </button>
-                                                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                    @foreach ($userNames as $user)
+                            </div>
+                         </div>
+                        @else
 
-                                                    <form method="POST" action="/transfer" id="{{ $user }}{{ $task->name }}">
-                                                      {{ csrf_field() }}
+                            <form method="POST" action="/canceled">
+                              {{ csrf_field() }}
 
-                                                          <input type="hidden" name="sender" value="{{ $currentUser }}">
-                                                          <input type="hidden" name="receiver" value="{{ $user }}">
-                                                          <input type="hidden" name="transferedTask" value="{{ $task->name }}">
+                              <input type="hidden" name="canceledTask" value="{{ $task->name }}">
 
-                                                          <a class="dropdown-item" href="javascript: {}" onclick="triggerTransfer('{{ $user }}', '{{ $user }}{{ $task->name }}');">{{ $user }}</a>
-
-                                                    </form>
-
-                                                    @endforeach
-
-
-                                                  </div>
-                                              </div>
+                              <button class="btn btn-dark float-right" type="button" aria-haspopup="true" aria-expanded="false" name="cancel">Cancel Transfer</button>
+                            </form>
+                        @endif
 
 
                                         <form action="{{ url('task/'.$task->id) }}" method="POST">
@@ -116,4 +127,5 @@
             </div>
         </div>
     @endif
+
 @endsection

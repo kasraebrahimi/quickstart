@@ -15,14 +15,19 @@ class TaskTransferController extends Controller
     public function store(Request $request)
     {
       $transfer = new \App\Transfer;
-      $transfer->sender = request()->all()['sender'];
-      $transfer->receiver = request()->all()['receiver'];
-      $transfer->transferedTask = request()->all()['transferedTask'];
-
+      $transfer->sender = $request->sender;
+      $transfer->receiver = $request->receiver;
+      $transfer->transferedTask = $request->transferedTask;
       $transfer->save();
-
-
 
       return redirect('/transfers');
     }
+
+    public function cancel()
+    {
+      // TODO delete transfer request from db.
+
+      return redirect('/tasks');
+    }
+
 }

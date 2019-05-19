@@ -7,8 +7,7 @@ use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\TaskRepository;
-use App;
-use App\User;
+
 
 class TaskController extends Controller
 {
@@ -22,19 +21,31 @@ class TaskController extends Controller
 
     public function index(Request $request)
     {
+      // Getting other users
       $userNames = [];
-      $usersData = App\User::all()->toArray();
+      $usersData = \App\User::all()->toArray();
           foreach ($usersData as $index => $userArray) {
             if ($userArray['id'] !== auth()->id()) {
             array_push($userNames, $userArray['name']);
            }
           }
 
+      // Getting all Transer Request Names
+      $allTransfers = [];
+      $allTransfers = \App\Transfer::all()->toArray();
+      $numberOfTransfers = sizeof($allTransfers);
+      $trTaskNames = [];
+
+      for ($i = 0; $i < $numberOfTransfers; $i++) {
+          array_push($trTaskNames, $allTransfers[$i]['transferedTask']);
+      }
+
           //die(print_r($userNames));
       return view('tasks.index', [
           'tasks' => $this->tasks->forUser($request->user()),
           'userNames' => $userNames,
-          'currentUser' => auth()->user()->name
+          'currentUser' => auth()->user()->name,
+          'trTaskNames' => $trTaskNames
       ]);
     }
 

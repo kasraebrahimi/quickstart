@@ -28,4 +28,6 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/transfers', 'TaskTransferController@index');
-Route::post('/transfer', 'TaskTransferController@store');
+Route::post('/transfers', 'TaskTransferController@store');
+
+Route::post('/canceled', 'TaskTransferController@cancel');

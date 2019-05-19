@@ -12,4 +12,5 @@ class Task extends Model
     {
       $this->belongsTo(User::class);
     }
+
 }
