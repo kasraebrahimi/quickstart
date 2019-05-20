@@ -90,9 +90,16 @@
           <td class="text-center">{{ $transfer['sender'] }}</td>
           <td class="text-center">
             @if ($transfer['status'] == 0)
-              <form method="POST" action="#">
-                  <button class="btn" style="background-color: royalblue; color: azure;" type="button" name="button{{ $transfer['transferedTask'] }}Accept">Accept</button>
-                  <button class="btn" style="background-color: tomato; color:azure;" type="button" name="button{{ $transfer['transferedTask'] }}Reject">Reject</button>
+              <form class="d-inline" method="POST" action="../accepted">
+              {{ csrf_field() }}
+                  <input type="hidden" name="acceptedTask" value="{{ $transfer['transferedTask'] }}">
+                  <button class="btn" style="background-color: royalblue; color: azure;" type="submit">Accept</button>
+              </form>
+
+              <form class="d-inline" method="POST" action="../rejected">
+              {{ csrf_field() }}
+                  <input type="hidden" name="rejectedTask" value="{{ $transfer['transferedTask'] }}">
+                  <button class="btn" style="background-color: tomato; color:azure;" type="submit">Reject</button>
               </form>
             @endif
           </td>

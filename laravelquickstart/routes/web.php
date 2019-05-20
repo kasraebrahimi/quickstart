@@ -31,3 +31,6 @@ Route::get('/transfers', 'TaskTransferController@index');
 Route::post('/transfers', 'TaskTransferController@store');
 
 Route::post('/canceled', 'TaskTransferController@cancel');
+
+Route::post('/accepted', 'TaskTransferController@accept');
+Route::post('/rejected', 'TaskTransferController@reject');

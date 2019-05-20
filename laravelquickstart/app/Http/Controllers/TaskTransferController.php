@@ -28,4 +28,24 @@ class TaskTransferController extends Controller
       \App\Transfer::where('transferedTask', $request->canceledTask)->delete();
       return redirect('/tasks');
     }
+
+    public function accept(Request $request)
+    {
+      $taskName = $request->acceptedTask;
+
+      \App\Task::where('name', $taskName)->update(['user_id' => auth()->user()->id]);
+
+      \App\Transfer::where('transferedTask', $taskName)->update(['status' => 1]);
+
+      return redirect('/transfers');
+    }
+
+    public function reject(Request $request)
+    {
+      $taskName = $request->rejectedTask;
+
+      \App\Transfer::where('transferedTask', $taskName)->update(['status' => 2]);
+
+      return redirect('/transfers');
+    }
 }
