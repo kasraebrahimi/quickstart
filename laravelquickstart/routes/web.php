@@ -34,3 +34,5 @@ Route::post('/canceled', 'TaskTransferController@cancel');
 
 Route::post('/accepted', 'TaskTransferController@accept');
 Route::post('/rejected', 'TaskTransferController@reject');
+
+Route::get('/history', 'TaskTransferController@history');

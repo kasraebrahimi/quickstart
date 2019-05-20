@@ -85,11 +85,12 @@
         foreach ($allTransfers as $transfer):
             if ($transfer['receiver'] === auth()->user()->name) {
         ?>
+        @if ($transfer['status'] == 0)
         <tr>
           <td class="text-center">{{ $transfer['transferedTask'] }}</td>
           <td class="text-center">{{ $transfer['sender'] }}</td>
           <td class="text-center">
-            @if ($transfer['status'] == 0)
+
               <form class="d-inline" method="POST" action="../accepted">
               {{ csrf_field() }}
                   <input type="hidden" name="acceptedTask" value="{{ $transfer['transferedTask'] }}">
@@ -101,9 +102,9 @@
                   <input type="hidden" name="rejectedTask" value="{{ $transfer['transferedTask'] }}">
                   <button class="btn" style="background-color: tomato; color:azure;" type="submit">Reject</button>
               </form>
-            @endif
           </td>
         </tr>
+        @endif
       <?php
         }
       endforeach;

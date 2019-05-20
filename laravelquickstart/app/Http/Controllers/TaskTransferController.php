@@ -48,4 +48,11 @@ class TaskTransferController extends Controller
 
       return redirect('/transfers');
     }
+
+    public function history()
+    {
+      $transfers = \App\Transfer::where('status', '>', 0)->orderBy('updated_at', 'desc')->get()->all();
+
+      return view('history', ['transfers' => $transfers]);
+    }
 }

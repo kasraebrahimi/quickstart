@@ -58,6 +58,10 @@
                                 transfers
                             </a>
 
+                            <a class="nav-link d-inline align-self-center" href="/history">
+                                history
+                            </a>
+
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle float-right" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
@@ -81,7 +85,7 @@
             </div>
         </nav>
         <div class="row d-flex justify-content-center">
-         <main class="py-4 col-lg-4">
+         <main class="py-4 col-lg-6">
             @yield('content')
          </main>
         </div>
