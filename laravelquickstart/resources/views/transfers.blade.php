@@ -28,7 +28,7 @@
       <tbody>
         <?php
         foreach ($allTransfers as $transfer):
-            if ($transfer['sender'] === auth()->user()->name) {
+            if (($transfer['sender'] === auth()->user()->name) && ($transfer['status'] == 0)) {
         ?>
         <tr>
           <td class="text-center">{{ $transfer['transferedTask'] }}</td>
@@ -63,7 +63,7 @@
       $taskIsNotEmpty = false;
     @endphp
     @foreach ($allTransfers as $transfer)
-      @if ($transfer['receiver'] === auth()->user()->name)
+      @if (($transfer['receiver'] === auth()->user()->name) && ($transfer['status'] == 0))
         @php
           $taskIsNotEmpty = true;
         @endphp
@@ -81,11 +81,9 @@
         </tr>
       </thead>
       <tbody>
-        <?php
-        foreach ($allTransfers as $transfer):
-            if ($transfer['receiver'] === auth()->user()->name) {
-        ?>
-        @if ($transfer['status'] == 0)
+
+        @foreach ($allTransfers as $transfer)
+            @if (($transfer['receiver'] === auth()->user()->name) && ($transfer['status'] == 0))
         <tr>
           <td class="text-center">{{ $transfer['transferedTask'] }}</td>
           <td class="text-center">{{ $transfer['sender'] }}</td>
@@ -104,11 +102,8 @@
               </form>
           </td>
         </tr>
-        @endif
-      <?php
-        }
-      endforeach;
-      ?>
+            @endif
+      @endforeach
 
       </tbody>
     </table>

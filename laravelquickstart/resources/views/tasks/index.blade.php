@@ -72,7 +72,7 @@
                         }
                         </script>
 
-                        @if (!in_array($task->name, $trTaskNames))
+                        @if (!in_array($task->name, $trTaskNames) || $trTaskStatus[$task->name] !== 0)
 
                         <div class="dropright float-right">
                           <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -109,7 +109,7 @@
                         @endif
 
                                         @php
-                                          $disabled = (in_array($task->name, $trTaskNames)) ? "disabled" : "";
+                                          $disabled = ((in_array($task->name, $trTaskNames)) && $trTaskStatus[$task->name] === 0) ? "disabled" : "";
                                         @endphp
                                         <form action="{{ url('task/'.$task->id) }}" method="POST">
                                             {{ csrf_field() }}
@@ -130,5 +130,4 @@
             </div>
         </div>
     @endif
-
 @endsection

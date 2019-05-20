@@ -18,6 +18,7 @@ class TaskTransferController extends Controller
       $transfer->sender = $request->sender;
       $transfer->receiver = $request->receiver;
       $transfer->transferedTask = $request->transferedTask;
+      $transfer->status = 0;
       $transfer->save();
 
       return redirect('/transfers');

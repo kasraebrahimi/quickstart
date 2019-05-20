@@ -2,6 +2,18 @@
 
 @section('content')
 
+      @php
+        $isNotEmpty = false;
+      @endphp
+      @foreach ($transfers as $transfer)
+        @if ($transfer->receiver == auth()->user()->name)
+          @php
+            $isNotEmpty = true;
+          @endphp
+        @endif
+      @endforeach
+
+      @if($isNotEmpty)
       <h2 class="text-center">Completed Transfers</h2>
       <table class="table table-bordered">
         <thead>
@@ -29,5 +41,9 @@
         </tbody>
 
       </table>
+
+      @else
+      <h2 class="text-center">No history!</h2>
+      @endif
 
 @endsection

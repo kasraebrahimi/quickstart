@@ -21,6 +21,8 @@ class TaskController extends Controller
 
     public function index(Request $request)
     {
+
+
       // Getting other users
       $userNames = [];
       $usersData = \App\User::all()->toArray();
@@ -35,17 +37,19 @@ class TaskController extends Controller
       $allTransfers = \App\Transfer::all()->toArray();
       $numberOfTransfers = sizeof($allTransfers);
       $trTaskNames = [];
+      $trTaskStatus = [];
 
       for ($i = 0; $i < $numberOfTransfers; $i++) {
           array_push($trTaskNames, $allTransfers[$i]['transferedTask']);
+          $trTaskStatus[$allTransfers[$i]['transferedTask']] = $allTransfers[$i]['status'];
       }
 
-          //die(print_r($userNames));
       return view('tasks.index', [
           'tasks' => $this->tasks->forUser($request->user()),
           'userNames' => $userNames,
           'currentUser' => auth()->user()->name,
-          'trTaskNames' => $trTaskNames
+          'trTaskNames' => $trTaskNames,
+          'trTaskStatus' => $trTaskStatus
       ]);
     }
 
@@ -62,7 +66,7 @@ class TaskController extends Controller
 
         return redirect('/tasks');
       } else {
-        
+
         return redirect('/tasks')->withErrors('Task already exists.');
       }
     }
